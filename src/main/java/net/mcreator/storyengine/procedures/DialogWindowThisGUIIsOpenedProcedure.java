@@ -17,5 +17,7 @@ public class DialogWindowThisGUIIsOpenedProcedure {
 			_tf.setValue(StoryengineModVariables.MapVariables.get(world).variant_2);
 		if (guistate.get("text:label_variant_3") instanceof EditBox _tf)
 			_tf.setValue(StoryengineModVariables.MapVariables.get(world).variant_3);
+		if (guistate.get("text:label_text") instanceof EditBox _tf)
+			_tf.setValue(StoryengineModVariables.MapVariables.get(world).phrase);
 	}
 }

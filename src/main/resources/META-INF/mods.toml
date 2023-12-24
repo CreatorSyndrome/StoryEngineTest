@@ -8,7 +8,7 @@ version="1.0.0"
 displayName="storyengine"
 credits="Created using mod maker MCreator - https://mcreator.net/about"
 displayURL="https://mcreator.net"
-authors="User, MCreator"
+authors="Команда Синдром Творца"
 
 [[dependencies.storyengine]]
     modId="minecraft"

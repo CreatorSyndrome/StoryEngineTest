@@ -14,7 +14,12 @@ import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.Minecraft;
 
 import net.mcreator.storyengine.world.inventory.DialogWindowMenu;
+import net.mcreator.storyengine.procedures.IfDialog3Procedure;
+import net.mcreator.storyengine.procedures.IfDialog2Procedure;
+import net.mcreator.storyengine.procedures.IfDialog1Procedure;
 import net.mcreator.storyengine.procedures.EntityForDialogProcedure;
+import net.mcreator.storyengine.network.DialogWindowButtonMessage;
+import net.mcreator.storyengine.StoryengineMod;
 
 import java.util.HashMap;
 
@@ -84,9 +89,13 @@ public class DialogWindowScreen extends AbstractContainerScreen<DialogWindowMenu
 
 	@Override
 	protected void renderLabels(PoseStack poseStack, int mouseX, int mouseY) {
-		this.font.draw(poseStack, new TranslatableComponent("gui.storyengine.dialog_window.label_variant_1"), 63, 30, -1);
-		this.font.draw(poseStack, new TranslatableComponent("gui.storyengine.dialog_window.label_variant_2"), 63, 66, -1);
-		this.font.draw(poseStack, new TranslatableComponent("gui.storyengine.dialog_window.label_variant_3"), 63, 101, -1);
+		if (IfDialog1Procedure.execute(world))
+			this.font.draw(poseStack, new TranslatableComponent("gui.storyengine.dialog_window.label_variant_1"), 63, 30, -1);
+		if (IfDialog2Procedure.execute(world))
+			this.font.draw(poseStack, new TranslatableComponent("gui.storyengine.dialog_window.label_variant_2"), 63, 66, -1);
+		if (IfDialog3Procedure.execute(world))
+			this.font.draw(poseStack, new TranslatableComponent("gui.storyengine.dialog_window.label_variant_3"), 63, 101, -1);
+		this.font.draw(poseStack, new TranslatableComponent("gui.storyengine.dialog_window.label_text"), -6, 160, -12829636);
 	}
 
 	@Override
@@ -100,15 +109,45 @@ public class DialogWindowScreen extends AbstractContainerScreen<DialogWindowMenu
 		super.init();
 		this.minecraft.keyboardHandler.setSendRepeatsToGui(true);
 		imagebutton_dialogbutton = new ImageButton(this.leftPos + 11, this.topPos + 24, 153, 25, 0, 0, 25, new ResourceLocation("storyengine:textures/screens/atlas/imagebutton_dialogbutton.png"), 153, 50, e -> {
-		});
+			if (IfDialog1Procedure.execute(world)) {
+				StoryengineMod.PACKET_HANDLER.sendToServer(new DialogWindowButtonMessage(0, x, y, z));
+				DialogWindowButtonMessage.handleButtonAction(entity, 0, x, y, z);
+			}
+		}) {
+			@Override
+			public void render(PoseStack ms, int gx, int gy, float ticks) {
+				if (IfDialog1Procedure.execute(world))
+					super.render(ms, gx, gy, ticks);
+			}
+		};
 		guistate.put("button:imagebutton_dialogbutton", imagebutton_dialogbutton);
 		this.addRenderableWidget(imagebutton_dialogbutton);
 		imagebutton_dialogbutton1 = new ImageButton(this.leftPos + 11, this.topPos + 59, 153, 25, 0, 0, 25, new ResourceLocation("storyengine:textures/screens/atlas/imagebutton_dialogbutton1.png"), 153, 50, e -> {
-		});
+			if (IfDialog2Procedure.execute(world)) {
+				StoryengineMod.PACKET_HANDLER.sendToServer(new DialogWindowButtonMessage(1, x, y, z));
+				DialogWindowButtonMessage.handleButtonAction(entity, 1, x, y, z);
+			}
+		}) {
+			@Override
+			public void render(PoseStack ms, int gx, int gy, float ticks) {
+				if (IfDialog2Procedure.execute(world))
+					super.render(ms, gx, gy, ticks);
+			}
+		};
 		guistate.put("button:imagebutton_dialogbutton1", imagebutton_dialogbutton1);
 		this.addRenderableWidget(imagebutton_dialogbutton1);
 		imagebutton_dialogbutton2 = new ImageButton(this.leftPos + 11, this.topPos + 93, 153, 25, 0, 0, 25, new ResourceLocation("storyengine:textures/screens/atlas/imagebutton_dialogbutton2.png"), 153, 50, e -> {
-		});
+			if (IfDialog3Procedure.execute(world)) {
+				StoryengineMod.PACKET_HANDLER.sendToServer(new DialogWindowButtonMessage(2, x, y, z));
+				DialogWindowButtonMessage.handleButtonAction(entity, 2, x, y, z);
+			}
+		}) {
+			@Override
+			public void render(PoseStack ms, int gx, int gy, float ticks) {
+				if (IfDialog3Procedure.execute(world))
+					super.render(ms, gx, gy, ticks);
+			}
+		};
 		guistate.put("button:imagebutton_dialogbutton2", imagebutton_dialogbutton2);
 		this.addRenderableWidget(imagebutton_dialogbutton2);
 	}

@@ -91,6 +91,10 @@ public class StoryengineModVariables {
 		public String variant_1 = "\"\"";
 		public String variant_2 = "\"\"";
 		public String variant_3 = "\"\"";
+		public double variant_1_to = 0;
+		public double variant_2_to = 0;
+		public double variant_3_to = 0;
+		public String phrase = "\"\"";
 
 		public static MapVariables load(CompoundTag tag) {
 			MapVariables data = new MapVariables();
@@ -103,6 +107,10 @@ public class StoryengineModVariables {
 			variant_1 = nbt.getString("variant_1");
 			variant_2 = nbt.getString("variant_2");
 			variant_3 = nbt.getString("variant_3");
+			variant_1_to = nbt.getDouble("variant_1_to");
+			variant_2_to = nbt.getDouble("variant_2_to");
+			variant_3_to = nbt.getDouble("variant_3_to");
+			phrase = nbt.getString("phrase");
 		}
 
 		@Override
@@ -111,6 +119,10 @@ public class StoryengineModVariables {
 			nbt.putString("variant_1", variant_1);
 			nbt.putString("variant_2", variant_2);
 			nbt.putString("variant_3", variant_3);
+			nbt.putDouble("variant_1_to", variant_1_to);
+			nbt.putDouble("variant_2_to", variant_2_to);
+			nbt.putDouble("variant_3_to", variant_3_to);
+			nbt.putString("phrase", phrase);
 			return nbt;
 		}
 
